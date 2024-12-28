@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Eventos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form label {
+            margin: 10px 0 5px;
+        }
+        form input, form textarea, form select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        form button {
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gestión de Eventos</h1>
+    </header>
+    <div class="container">
+        <h2>Registrar un Nuevo Evento</h2>
+        <form id="eventForm">
+            <label for="title">Título del Evento</label>
+            <input type="text" id="title" name="title" placeholder="Título del evento" required>
+
+            <label for="guests">Invitados</label>
+            <input type="text" id="guests" name="guests" placeholder="Nombres de los invitados">
+
+            <label for="date">Fecha y Hora</label>
+            <input type="datetime-local" id="date" name="date" required>
+
+            <label for="timezone">Zona Horaria</label>
+            <select id="timezone" name="timezone">
+                <option value="GMT-5">GMT-5</option>
+                <option value="GMT-4">GMT-4</option>
+                <option value="GMT-3">GMT-3</option>
+            </select>
+
+            <label for="description">Descripción</label>
+            <textarea id="description" name="description" rows="4" placeholder="Detalles del evento"></textarea>
+
+            <button type="submit">Registrar Evento</button>
+        </form>
+
+        <h2>Lista de Eventos</h2>
+        <table id="eventsTable">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Fecha</th>
+                    <th>Invitados</th>
+                    <th>Zona Horaria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los eventos registrados aparecerán aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const eventForm = document.getElementById('eventForm');
+            const eventsTable = document.getElementById('eventsTable').querySelector('tbody');
+
+            eventForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Obtener datos del formulario
+                const title = document.getElementById('title').value;
+                const guests = document.getElementById('guests').value;
+                const date = document.getElementById('date').value;
+                const timezone = document.getElementById('timezone').value;
+
+                // Crear una nueva fila en la tabla
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${title}</td>
+                    <td>${date}</td>
+                    <td>${guests}</td>
+                    <td>${timezone}</td>
+                `;
+
+                // Agregar la fila a la tabla
+                eventsTable.appendChild(row);
+
+                // Limpiar el formulario
+                eventForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>
